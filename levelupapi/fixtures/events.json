@@ -1,0 +1,26 @@
+[
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields": {
+            "game": 1, 
+            "description": "Can this dummy name that smell?",
+            "date": "2022-11-7",
+            "time": "10:00:00",
+            "organizer": 1,
+            "gamers": []
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 2,
+        "fields": {
+            "game": 2, 
+            "description": "Did Margaret Thatcher assassinate a U.S. Civil Rights attorney? (yes)",
+            "date": "2022-12-10",
+            "time": "08:00:00",
+            "organizer": 1,
+            "gamers": []
+        }
+    }
+]
