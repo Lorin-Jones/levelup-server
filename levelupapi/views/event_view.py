@@ -79,12 +79,20 @@ class EventView(ViewSet):
         return Response(serializer.data, status = status.HTTP_200_OK)
 
     def list(self, request):
-        event = Event.objects.all()
+        events = Event.objects.all()
 
         if "game" in request.query_params:
-            event = event.filter(game = request.query_params['game'])
+            events = events.filter(game = request.query_params['game'])
         
-        serializer = EventSerializer(event, many=True)
+                
+
+        # Set the `joined` property on every event  
+        gamer = Gamer.objects.get(user=request.auth.user)  
+        for event in events:
+            # Check to see if the gamer is in the attendees list on the event
+            event.joined = gamer in event.attendees.all()
+
+        serializer = EventSerializer(events, many=True)
         return Response(serializer.data, status = status.HTTP_200_OK)
 
     def destroy(self, request, pk):
@@ -106,4 +114,4 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('id', 'game', 'description', 'date', 'time', 'organizer', 'attendees', )
+        fields = ('id', 'game', 'description', 'date', 'time', 'organizer', 'attendees', 'joined' )
